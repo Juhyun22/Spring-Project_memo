@@ -1,7 +1,8 @@
 @charset "UTF-8";
 
-header {height:100px; background-color:#CCFF00;}
+header {height:100px; background-color: #FFCCFF;}
 
 .contents {height:500px;}
+.btnCss {background-color: #FFCCFF; width: 100px;}
 
-footer {height:100px; background-color:#CCFF00;}
+footer {height:100px; background-color: #FFCCFF;}
