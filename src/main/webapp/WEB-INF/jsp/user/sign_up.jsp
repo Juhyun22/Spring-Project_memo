@@ -15,7 +15,7 @@
 						<td>
 							<div class="d-flex">
 								<input type="text" class="form-control col-8" id="id" name="id" placeholder="아이디를 입력해주세요.">
-								<button type="button" class="btn btn-warning btnCss loginCheckBtn">중복확인</button>
+								<button type="button" class="btn btn-warning btnCss loginCheckBtn ml-4">중복확인</button>
 							</div>
 							<div class="d-flex justify-content-start ml-2">
 								<small class="idCheckLength text-primary d-none">id를 4자 이상 입력해주세요.</small>
@@ -142,7 +142,7 @@
 			// idCheckOk <div>에 클래스 중 d-none이 있는 경우 => 성공이 아님 => return 시킴(회원가입 X)
 			if ($('.idCheckOk').hasClass('d-none')) {
 				alert("아이디 중복확인을 다시 해주세요.");
-				return;
+				return false;
 			}
 			
 			// submit
