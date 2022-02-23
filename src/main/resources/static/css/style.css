@@ -1,8 +1,31 @@
 @charset "UTF-8";
 
-header {height:100px; background-color: #FFCCFF;}
+header {
+	height: 100px;
+	background-color: #FFCCFF;
+}
 
-.contents {height:500px;}
-.btnCss {background-color: #FFCCFF;}
+.contents {
+	
+}
 
-footer {height:100px; background-color: #FFCCFF;}
+#sign-in-part {
+	height: 500px;
+}
+
+#sign-up-part {
+	height: 500px;
+}
+
+#post-list-part {
+	height: 500px;
+}
+
+.btnCss {
+	background-color: #FFCCFF;
+}
+
+footer {
+	height: 100px;
+	background-color: #FFCCFF;
+}

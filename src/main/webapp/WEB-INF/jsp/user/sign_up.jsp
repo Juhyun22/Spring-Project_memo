@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<article class="d-flex h-100">
+<article id="sign-up-part" class="d-flex">
 	<div class="col-2"></div>
-	<div class="memo-part col-8 d-flex align-items-center">
+	<div class="col-8 d-flex align-items-center">
 		<div class="w-100">
 		<div>
 			<div class="display-4 mb-3">회원가입</div>

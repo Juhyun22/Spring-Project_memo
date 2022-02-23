@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<article class="d-flex h-100">
+<article id="sign-in-part" class="d-flex">
 	<div class="col-4"></div>
-	<div class="login-part col-4 d-flex align-items-center">
+	<div class="col-4 d-flex align-items-center">
 		<div class="w-100">
 			<div class="display-4">로그인</div>
 		
