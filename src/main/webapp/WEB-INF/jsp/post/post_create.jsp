@@ -70,7 +70,7 @@
 			let formData = new FormData();
 			formData.append("subject", subject);
 			formData.append("content", content);
-			formData.append("file", $('#file')[0].files[0]); // $('#file')[0]은 첫번쨰 input file 태그를 의미, 
+			formData.append("file", $('#file')[0].files[0]); // $('#file')[0]은 첫번쨰 input file 태그를 의미, files[0]은 업로드 된 첫번째 파일을 의미 
 			
 			// AJAX form 데이터 전송 
 			$.ajax({
@@ -85,7 +85,8 @@
 						alert("메모가 저장되었습니다.");
 						location.href = "/post/post_list_view";
 					} else {
-						alert("메모 저장에 실패했습니다.");
+						alert(data.errorMessage);
+						location.href = "/user/sign_in_view";
 					}
 				}
 				, error: function(e) {
