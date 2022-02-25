@@ -1,7 +1,6 @@
 package com.memo.post;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -15,7 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.memo.post.bo.PostBO;
-import com.memo.post.model.Post;
 
 @RequestMapping("/post")
 @RestController
@@ -25,15 +23,13 @@ public class PostRestController {
 	private PostBO postBO;
 
 	/**
-	 * 테스트용 Controller
+	 * 파일 업로드 및 memo post 
+	 * @param subject
+	 * @param content
+	 * @param file
+	 * @param request
 	 * @return
 	 */
-	@RequestMapping("/posts")
-	public List<Post> posts() {
-		List<Post> postList = postBO.getPostList();
-		return postList;
-	}
-	
 	@PostMapping("/create")
 	public Map<String, Object> create(
 			@RequestParam("subject") String subject,
