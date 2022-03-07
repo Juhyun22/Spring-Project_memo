@@ -25,10 +25,10 @@
 								<a href="/post/post_detail_view?postId=${post.id}" class="text-dark">${post.subject}</a>
 							</td>
 							<td>
-								<fmt:formatDate value="${post.createdAt}" pattern="yyyy-M-d HH:mm:ss"/>
+								<fmt:formatDate value="${post.createdAt}" pattern="yyyy-MM-dd HH:mm:ss"/>
 							</td>
 							<td>
-								<fmt:formatDate value="${post.updatedAt}" pattern="yyyy-M-d HH:mm:ss"/>
+								<fmt:formatDate value="${post.updatedAt}" pattern="yyyy-MM-dd HH:mm:ss"/>
 							</td>
 						</tr>
 					</c:forEach>

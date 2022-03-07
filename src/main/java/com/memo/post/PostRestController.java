@@ -8,6 +8,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -23,7 +24,7 @@ public class PostRestController {
 	private PostBO postBO;
 
 	/**
-	 * 파일 업로드 및 memo post 
+	 * 글쓰기 - 파일 업로드 및 memo post 
 	 * @param subject
 	 * @param content
 	 * @param file
@@ -52,6 +53,31 @@ public class PostRestController {
 		 
 		// userId, userLoginId ,subject, content, file => BO insert 요청 
 		postBO.addPost(userId, userLoginId, subject, content, file);
+		
+		return result;
+	}
+	
+	@PutMapping("/update")
+	public Map<String, Object> update(
+			@RequestParam("postId") int postId,
+			@RequestParam("subject") String subject,
+			@RequestParam(value="content", required=false) String content,
+			@RequestParam(value="file", required=false) MultipartFile file,
+			HttpServletRequest request) {
+		
+		HttpSession session = request.getSession();
+		String userLoginId = (String) session.getAttribute("userLoginId");
+		int userId = (int) session.getAttribute("userId");
+		
+		Map<String, Object> result = new HashMap<>();
+		result.put("result", "success");
+		
+		// TODO: update DB
+		int row = postBO.updatePost(postId, userLoginId, userId, subject, content, file);
+		if (row < 1) {
+			result.put("result", "error");
+			result.put("errorMessage", "메모 수정에 실패했습니다.");
+		}
 		
 		return result;
 	}

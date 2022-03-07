@@ -4,7 +4,12 @@
 <div class="header-part d-flex h-100">
 	<div class="logo col-10 d-flex align-items-center">
 		<div>
-			<a href="#" class="text-dark"><h1>메모 게시판</h1></a>
+			<c:if test="${not empty userName}">
+			<a href="/post/post_list_view" class="text-dark"><h1>메모 게시판</h1></a>
+			</c:if>
+			<c:if test="${empty userName}">
+			<a href="/user/sign_in_view" class="text-dark"><h1>메모 게시판</h1></a>
+			</c:if>
 		</div>
 	</div>
 	<div class="login-part col-2 d-flex align-items-end justify-content-center flex-column">
