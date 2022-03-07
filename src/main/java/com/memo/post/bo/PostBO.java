@@ -1,5 +1,6 @@
 package com.memo.post.bo;
 
+import java.io.IOException;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -62,12 +63,38 @@ public class PostBO {
 			// 새로 업로드된 이미지가 성공하면 기존 이미지 삭제 (기존 이미지가 있을 때에만)
 			if (post.getImagePath() != null && imagePath != null) {
 				// 기존 이미지 삭제 
-				fileManager.deleteFile(post.getImagePath());
+				try {
+					fileManager.deleteFile(post.getImagePath());
+				} catch (IOException e) {
+					logger.error("[update post] 이미지 삭제 실패 {}, {}", post.getId(), post.getImagePath());
+				}
 			}
 		}
 		
 		// DB에서 update 
 		return postDAO.updatePostByUserIdAndPostId(postId, userId, subject, content, imagePath);
+	}
+	
+	public int deletePostByPostIdAndUserId(int postId, int userId) {
+		// 삭제 전에 게시글을 먼저 가져와본다. (이미지 path가 있을수 있기 때문에)
+		Post post = getPostById(postId);
+		if (post == null) {
+			logger.warn("[delete post] 삭제할 메모가 존재하지 않습니다." + postId);
+			return 0;
+		}
+		
+		// imagePath가 있는 경우 파일 삭제 
+		if (post.getImagePath() != null) {
+			// 기존 이미지 삭제 
+			try {
+				fileManager.deleteFile(post.getImagePath());
+			} catch (IOException e) {
+				logger.error("[delete post] 이미지 삭제 실패 {}, {}", post.getId(), post.getImagePath());
+			}
+		}
+		
+		// DB에서 Post 삭제 
+		return postDAO.deletePostByUserIdPostId(userId, postId);
 	}
 }
 
