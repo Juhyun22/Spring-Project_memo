@@ -1,6 +1,7 @@
 package com.memo.post.bo;
 
 import java.io.IOException;
+import java.util.Collections;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -25,8 +26,35 @@ public class PostBO {
 	@Autowired
 	private FileManagerService fileManager;
 	
-	public List<Post> getPostListByUserId(int userId) {
-		return postDAO.selectPostListByUserId(userId);
+	private static final int POST_MAX_SIZE = 3;
+	
+	public List<Post> getPostListByUserId(int userId, Integer prevId, Integer nextId) {
+		// 10 9 8 | 7 6 5 | 4 3 2 | 1
+		
+		// 예를 들어 7 6 5 페이지에서 
+		// 1) 다음을 눌렀을 때: nextId-5 => 5보다 작은 3개 => 4 3 2     DESC
+		// 2) 이전을 눌렀을 때: prevId-7 => 7보다 큰 3개 => 8 9 10     ASC  => 코드에서 데이터를 reverse
+		// 3) 첫 페이지로 들어왔을 때: 10 9 8 DESC
+		
+		String direction = null;
+		Integer standardId = null;
+		if (nextId != null) {  // 1) 다음 클릭 
+			direction = "next";
+			standardId = nextId;
+			
+			return postDAO.selectPostListByUserId(userId, direction, standardId, POST_MAX_SIZE);
+		} else if (prevId != null) {  // 2) 이전 클릭 
+			direction = "prev";
+			standardId = prevId;
+			
+			List<Post> postList = postDAO.selectPostListByUserId(userId, direction, standardId, POST_MAX_SIZE);
+			// 7보다 큰 3개 8 9 10이 나오므로 List를 reverse 정렬 시킨다. 
+			Collections.reverse(postList);
+			return postList;
+		}
+		
+		// 3) 첫 페이지 
+		return postDAO.selectPostListByUserId(userId, direction, standardId, POST_MAX_SIZE);
 	}
 	
 	public Post getPostById(int id) {
